@@ -11,12 +11,6 @@ app = Flask(__name__)
 
 
 @app.route('/')
-def hello():
-    message = "Hello from Flask"
-    return render_template("message.html", msg=message)
-
-
-@app.route('/figure')
 def figure():
     # Generate the figure "without using pyplot"
     fig = Figure()
