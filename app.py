@@ -1,7 +1,6 @@
 import base64
 from io import BytesIO
 
-from livereload import Server
 from flask import Flask, render_template
 from matplotlib.figure import Figure
 import pandas as pd
@@ -11,17 +10,8 @@ app = Flask(__name__)
 
 
 @app.route('/')
-def figure():
-    # Generate the figure "without using pyplot"
-    fig = Figure()
-    ax = fig.subplots()
-    ax.plot([1, 2])
-    # Save it to a temporary buffer
-    buf = BytesIO()
-    fig.savefig(buf, format="png")
-    # Embed the result in the html output
-    data = base64.b64encode(buf.getbuffer()).decode("ascii")
-    return f"<img src='data:image/png;base64,{data}'>"
+def home():
+    return render_template("graph.html")
 
 
 @app.route('/accelerometer')
@@ -49,7 +39,7 @@ def acc_data():
     buf = BytesIO()
     fig.savefig(buf, format="png")
     data = base64.b64encode(buf.getbuffer()).decode("ascii")
-    return render_template("graph.html", data=data, title="3-axis Accelerometer")
+    return f"<img src='data:image/png;base64,{data}'>"
 
 
 @app.route('/gyroscope')
@@ -77,9 +67,8 @@ def gyro_data():
     buf = BytesIO()
     fig.savefig(buf, format="png")
     data = base64.b64encode(buf.getbuffer()).decode("ascii")
-    return render_template("graph.html", data=data, title="3-axis Gyroscope")
+    return f"<img src='data:image/png;base64,{data}'>"
 
 
 if __name__ == "__main__":
-    server = Server(app.wsgi_app)
-    server.serve()
+    app.run(debug=True)
