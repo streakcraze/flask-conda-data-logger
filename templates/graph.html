@@ -5,23 +5,35 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Flask Template</title>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+		<script
+			type="text/javascript"
+			src="{{ url_for('static', filename='scripts.js') }}"
+		></script>
 	</head>
 	<body>
-		<div>
-			<h1>3-axis accelerometer</h1>
-			<iframe
-				src="{{ url_for('acc_data') }}"
-				title="accelerometer-graph"
-				style="border: none; height: 500px; width: 700px"
-			></iframe>
-		</div>
-		<div>
-			<h1>3-axis gyroscope</h1>
-			<iframe
-				src="{{ url_for('gyro_data') }}"
-				alt="gyroscope-graph"
-				style="border: none; height: 500px; width: 700px"
-			></iframe>
+		<div id="sensor-dashboard">
+			<div>
+				<iframe
+					src="{{ url_for('acc_data') }}"
+					title="accelerometer-graph"
+					style="border: none; height: 500px; width: 700px"
+				></iframe>
+			</div>
+			<div>
+				<iframe
+					src="{{ url_for('gyro_data') }}"
+					alt="gyroscope-graph"
+					style="border: none; height: 500px; width: 700px"
+				></iframe>
+			</div>
+			<div>
+				<iframe
+					src="{{ url_for('baro_data') }}"
+					alt="barometer-graph"
+					style="border: none; height: 500px; width: 700px"
+				></iframe>
+			</div>
 		</div>
 	</body>
 </html>
